@@ -73,7 +73,7 @@ void setup() {
   }
 
   // The variable below calibrates the LED output on your hardware.
-  byte ledBrightness = 135;
+  byte ledBrightness = 140;
 
   byte sampleAverage = 4;  // Options: 1, 2, 4, 8, 16, --32--
   byte ledMode = 2;        // Options: 1 = Red only, --2 = Red + IR--, 3 = Red + IR + Green
