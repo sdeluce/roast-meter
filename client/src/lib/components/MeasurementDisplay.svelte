@@ -7,19 +7,19 @@
   export let meterState: DeviceState;
 
   function getAgtronColor(level: number): string {
-    if (level < 30) return 'from-yellow-800 to-amber-900';
-    if (level < 50) return 'from-amber-700 to-yellow-700';
-    if (level < 70) return 'from-yellow-600 to-amber-600';
-    if (level < 90) return 'from-amber-500 to-yellow-500';
-    return 'from-yellow-400 to-amber-400';
+    if (level == 0) return 'from-gray-600 to-gray-700';
+    return 'from-yellow-900 to-amber-900';
   }
 
   function getAgtronDescription(level: number): string {
-    if (level < 30) return 'Torréfaction très foncée';
-    if (level < 50) return 'Torréfaction foncée';
-    if (level < 70) return 'Torréfaction moyenne';
-    if (level < 90) return 'Torréfaction claire';
-    return 'Torréfaction très claire';
+    if (level == 0) return 'Placez votre échantillon';
+    if (level >= 108) return "Very Light";
+    if (level >= 93) return "Light";
+    if (level >= 79) return "Medium Light";
+    if (level >= 64) return "Medium";
+    if (level >= 49) return "Medium Dark";
+    if (level >= 35) return "Dark";
+    return "Very Dark";
   }
 
   function getGaugePercentage(value: number, max: number): number {
@@ -27,10 +27,40 @@
   }
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+{#if meterState === STATES.READY}
+  <div class="mb-6 p-4 bg-green-700 border border-green-800 rounded-lg">
+    <div class="flex items-center space-x-2">
+      <Thermometer class="h-5 w-5 text-green-50" />
+      <p class="text-sm text-green-50 font-medium">Appareil prêt - Placez votre échantillon</p>
+    </div>
+  </div>
+{:else if meterState === STATES.WARMUP}
+  <div class="mb-6 p-4 bg-yellow-700 border border-yellow-800 rounded-lg">
+    <div class="flex items-center space-x-2">
+      <Thermometer class="h-5 w-5 text-yellow-50" />
+      <p class="text-sm text-yellow-50 font-medium">Préchauffage en cours...</p>
+    </div>
+  </div>
+{:else if meterState === STATES.SETUP}
+  <div class="mb-6 p-4 bg-gray-700 border border-gray-800 rounded-lg">
+    <div class="flex items-center space-x-2">
+      <Gauge class="h-5 w-5 text-gray-50" />
+      <p class="text-sm text-gray-800 font-medium">Configuration en cours...</p>
+    </div>
+  </div>
+{:else if meterState === STATES.MEASURED}
+  <div class="mb-6 p-4 bg-blue-700 border border-blue-800 rounded-lg">
+    <div class="flex items-center space-x-2">
+      <Gauge class="h-5 w-5 text-blue-50" />
+      <p class="text-sm text-blue-50 font-medium">Mesure en cours...</p>
+    </div>
+  </div>
+{/if}
+
+<div class="grid grid-cols-1 gap-6">
   <!-- Affichage Agtron -->
-  <div class="bg-gradient-to-br {getAgtronColor(agtronLevel)} p-6 rounded-xl text-white">
-    <div class="flex items-center justify-between mb-4">
+  <div class="bg-gradient-to-br {getAgtronColor(agtronLevel)} px-6 py-2 rounded-xl text-white">
+    <div class="flex items-center justify-between mb-8">
       <div class="flex items-center space-x-2">
         <Eye class="h-6 w-6" />
         <h3 class="text-lg font-semibold">Agtron</h3>
@@ -45,19 +75,19 @@
     <div class="bg-white/20 rounded-full h-3 overflow-hidden">
       <div 
         class="h-full bg-white/60 transition-all duration-300 ease-out"
-        style="width: {getGaugePercentage(agtronLevel, 100)}%"
+        style="width: {getGaugePercentage(agtronLevel, 125)}%"
       ></div>
     </div>
     
     <div class="flex justify-between text-xs opacity-75 mt-2">
-      <span>Foncé</span>
-      <span>Clair</span>
+      <span>Dark</span>
+      <span>Light</span>
     </div>
   </div>
 
   <!-- Affichage Capteur IR -->
-  <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-6 rounded-xl text-white">
-    <div class="flex items-center justify-between mb-4">
+  <!-- <div class="bg-gradient-to-br from-blue-500 to-indigo-600 px-6 py-2 rounded-xl text-white">
+    <div class="flex items-center justify-between mb-8">
       <div class="flex items-center space-x-2">
         <Gauge class="h-6 w-6" />
         <h3 class="text-lg font-semibold">Capteur IR</h3>
@@ -68,7 +98,6 @@
       </div>
     </div>
     
-    <!-- Barre de progression Capteur -->
     <div class="bg-white/20 rounded-full h-3 overflow-hidden">
       <div 
         class="h-full bg-white/60 transition-all duration-300 ease-out"
@@ -80,28 +109,5 @@
       <span>0</span>
       <span>65535</span>
     </div>
-  </div>
+  </div> -->
 </div>
-
-{#if meterState === STATES.READY}
-  <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-    <div class="flex items-center space-x-2">
-      <Thermometer class="h-5 w-5 text-green-600" />
-      <p class="text-sm text-green-800 font-medium">Appareil prêt - Placez votre échantillon</p>
-    </div>
-  </div>
-{:else if meterState === STATES.WARMUP}
-  <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-    <div class="flex items-center space-x-2">
-      <Thermometer class="h-5 w-5 text-yellow-600" />
-      <p class="text-sm text-yellow-800 font-medium">Préchauffage en cours...</p>
-    </div>
-  </div>
-{:else if meterState === STATES.SETUP}
-  <div class="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-    <div class="flex items-center space-x-2">
-      <Gauge class="h-5 w-5 text-gray-600" />
-      <p class="text-sm text-gray-800 font-medium">Configuration en cours...</p>
-    </div>
-  </div>
-{/if}
