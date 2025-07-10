@@ -17,6 +17,68 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Roast Pilot">
 
+    <script>
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+        const statusDiv = document.getElementById('status');
+        
+        // Enregistrement du service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(registration => {
+                    console.log('Service Worker enregistré:', registration);
+                })
+                .catch(error => {
+                    console.log('Erreur Service Worker:', error);
+                });
+        }
+        
+        // Gestion de l'installation PWA
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+        });
+        
+        installButton.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Installation acceptée');
+                    }
+                    deferredPrompt = null;
+                    installButton.style.display = 'none';
+                });
+            }
+        });
+        
+        // Détection online/offline
+        window.addEventListener('online', () => {
+            statusDiv.className = 'status online';
+            statusDiv.innerHTML = '✅ Application en ligne';
+        });
+        
+        window.addEventListener('offline', () => {
+            statusDiv.className = 'status offline';
+            statusDiv.innerHTML = '❌ Application hors ligne';
+        });
+        
+        // Exemple de fonctionnalité
+        function addItem() {
+            const list = document.getElementById('itemList');
+            const item = document.createElement('li');
+            item.textContent = `Élément ${list.children.length + 1} - ${new Date().toLocaleTimeString()}`;
+            list.appendChild(item);
+        }
+        
+        // Vérification si l'app est installée
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installée avec succès');
+            installButton.style.display = 'none';
+        });
+    </script>
+
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover" class="h-full bg-gray-500">
