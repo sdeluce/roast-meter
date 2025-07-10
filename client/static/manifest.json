@@ -62,5 +62,16 @@
   ],
   "orientation": "portrait-primary",
   "lang": "fr",
-  "dir": "ltr"
+  "dir": "ltr",
+  "categories": [
+    "utilities"
+  ],
+  "screenshots" : [
+    {
+      "src": "screenshot/screenshot.jpg",
+      "sizes": "2400x1080",
+      "type": "image/jpg",
+      "platform": "wide"
+    }
+  ]
 }
