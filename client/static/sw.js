@@ -1,11 +1,7 @@
-const CACHE_NAME = 'mon-app-v1';
+const CACHE_NAME = 'roast-cache-v1.0';
 const urlsToCache = [
   '/',
-  '/index.html',
-  '/*.css',
-  '/*.js',
-  '/icon-192x192.png',
-  '/icon-512x512.png'
+  '/index.html'
 ];
 
 // Installation du service worker
