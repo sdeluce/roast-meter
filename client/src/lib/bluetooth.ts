@@ -1,10 +1,8 @@
 import { writable, type Writable } from 'svelte/store';
 
-// on Android Chrome
-window.matchMedia(
-  '(display-mode: standalone)'
-).matches
-
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
 
 // UUIDs depuis votre code Arduino
 const ROAST_METER_SERVICE_UUID = '875a0ee0-03dd-4225-ae06-35e8ae92b84c';

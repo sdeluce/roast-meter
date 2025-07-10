@@ -2,7 +2,7 @@
   import { Wifi, WifiOff } from 'lucide-svelte';
 
   export let isConnected: boolean;
-  // export let state: number;
+  export let state: number;
   export let stateText: string;
   export let stateColor: string;
 </script>

@@ -3,7 +3,7 @@
   import { Gauge, Eye, Thermometer } from 'lucide-svelte';
 
   export let agtronLevel: number;
-  // export let particleSensorValue: number;
+  export let particleSensorValue: number;
   export let meterState: DeviceState;
 
   function getAgtronColor(level: number): string {
