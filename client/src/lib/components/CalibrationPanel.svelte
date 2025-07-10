@@ -48,14 +48,13 @@
   }
 </script>
 
-<div class="bg-red-900/30 border-2 border-red-500 rounded-xl shadow-lg px-4 py-3">
+<div class="bg-red-900/40 rounded-xl shadow-lg px-4 py-3">
   <div class="flex items-center justify-between mb-6">
     <div class="flex items-center space-x-2">
       <!-- <Settings class="h-6 w-6 text-gray-100" /> -->
       <h2 class="text-xl font-semibold text-gray-50">Calibration</h2>
     </div>
-    
-    <!-- {#if hasChanges()} -->
+    {#if isConnected}
       <div class="flex items-center space-x-2">
         <button
           on:click={resetSettings}
@@ -72,8 +71,17 @@
           <span>{isSaving ? 'Sauvegarde...' : 'Sauvegarder'}</span>
         </button>
       </div>
-    <!-- {/if} -->
+    {/if}
   </div>
+
+
+  {#if !isConnected}
+    <div class="mb-6 p-4 bg-red-800 border border-red-900 rounded-lg">
+      <p class="text-sm text-red-50">
+        Connectez-vous à votre <b>Roast meter</b> pour modifier les paramètres de calibration.
+      </p>
+    </div>
+  {/if}
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
      <!-- Luminosité LED -->
@@ -147,11 +155,4 @@
     </div>
   </div>
 
-  {#if !isConnected}
-    <div class="mt-6 p-4 bg-red-800 border border-red-900 rounded-lg">
-      <p class="text-sm text-red-50">
-        Connectez-vous à votre roast meter pour modifier les paramètres de calibration.
-      </p>
-    </div>
-  {/if}
 </div>

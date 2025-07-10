@@ -3,7 +3,7 @@
   import { onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
   import { bluetoothService } from '$lib/bluetooth';
-  import { Bluetooth, BluetoothConnected, Settings, Coffee } from 'lucide-svelte';
+  import { Bluetooth, BluetoothConnected, Settings, BadgeHelp} from 'lucide-svelte';
 
   let isConnected = false;
   let showSettings = writable(false);
@@ -40,17 +40,21 @@
     <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-6">
         <div class="flex items-center space-x-3">
-          <h1 class="text-2xl text-gray-200">Roast Pilot</h1>
+          <h1 class="text-2xl text-gray-200">
+            <a href="/">Roast Pilot</a>
+          </h1>
         </div>
         
         <div class="flex items-center space-x-4">
-          <button
-            on:click={toggleSettings}
-            class="p-2 rounded-lg hover:bg-gray-700 transition-colors"
-            class:bg-amber-800={$showSettings}
-          >
-            <Settings class="h-5 w-5 text-gray-200" />
-          </button>
+          {#if isConnected}
+            <button
+              on:click={toggleSettings}
+              class="p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              class:bg-amber-800={$showSettings}
+            >
+              <Settings class="h-5 w-5 text-gray-200" />
+            </button>
+          {/if}
           
           {#if isConnected}
             <button
@@ -69,6 +73,12 @@
               <span>Connecter</span>
             </button>
           {/if}
+          <a href="/manual"
+              class="p-2 rounded-lg bg-slate-800 hover:bg-gray-700 transition-colors"
+              class:bg-amber-800={$showSettings}
+            >
+              <BadgeHelp class="h-5 w-5 text-gray-200" />
+          </a>
         </div>
       </div>
     </div>

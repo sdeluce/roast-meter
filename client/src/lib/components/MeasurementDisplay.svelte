@@ -1,7 +1,8 @@
 <script lang="ts">
   import { STATES, type DeviceState } from '$lib/bluetooth';
-  import { Gauge, Eye, Thermometer, Coffee } from 'lucide-svelte';
+  import { Gauge, Eye, Thermometer, Coffee, Bluetooth } from 'lucide-svelte';
 
+  export let isConnected: boolean;
   export let agtronLevel: number;
   export let particleSensorValue: number;
   export let meterState: DeviceState;
@@ -27,27 +28,36 @@
   }
 </script>
 
-{#if meterState === STATES.READY}
-  <div class="mb-6 p-4 bg-green-700 border border-green-800 rounded-lg">
+{#if !isConnected}
+  <div class="mb-6 p-4 bg-red-700 border border-red-800 rounded-lg">
     <div class="flex items-center space-x-2">
-      <Coffee class="h-5 w-5 text-green-50" />
-      <p class="text-sm text-green-50 font-medium">Placez votre échantillon</p>
+      <Bluetooth class="h-5 w-5 text-red-50" />
+      <p class="text-sm text-red-50 font-medium"><b>Roast meter</b> non connecté</p>
     </div>
   </div>
-{:else if meterState === STATES.WARMUP || meterState === STATES.SETUP}
-  <div class="mb-6 p-4 bg-yellow-700 border border-yellow-800 rounded-lg">
-    <div class="flex items-center space-x-2">
-      <Thermometer class="h-5 w-5 text-yellow-50" />
-      <p class="text-sm text-yellow-50 font-medium">Préchauffage en cours...</p>
+{:else}
+  {#if meterState === STATES.READY}
+    <div class="mb-6 p-4 bg-green-700 border border-green-800 rounded-lg">
+      <div class="flex items-center space-x-2">
+        <Coffee class="h-5 w-5 text-green-50" />
+        <p class="text-sm text-green-50 font-medium">Placez votre échantillon</p>
+      </div>
     </div>
-  </div>
-{:else if meterState === STATES.MEASURED}
-  <div class="mb-6 p-4 bg-cyan-700 border border-cyan-800 rounded-lg">
-    <div class="flex items-center space-x-2">
-      <Gauge class="h-5 w-5 text-cyan-50" />
-      <p class="text-sm text-cyan-50 font-medium">Mesure en cours...</p>
+  {:else if meterState === STATES.WARMUP || meterState === STATES.SETUP}
+    <div class="mb-6 p-4 bg-yellow-700 border border-yellow-800 rounded-lg">
+      <div class="flex items-center space-x-2">
+        <Thermometer class="h-5 w-5 text-yellow-50" />
+        <p class="text-sm text-yellow-50 font-medium">Préchauffage en cours...</p>
+      </div>
     </div>
-  </div>
+  {:else if meterState === STATES.MEASURED}
+    <div class="mb-6 p-4 bg-cyan-700 border border-cyan-800 rounded-lg">
+      <div class="flex items-center space-x-2">
+        <Gauge class="h-5 w-5 text-cyan-50" />
+        <p class="text-sm text-cyan-50 font-medium">Mesure en cours...</p>
+      </div>
+    </div>
+  {/if}
 {/if}
 
 <div class="grid grid-cols-1 gap-6">

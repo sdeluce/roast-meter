@@ -87,6 +87,7 @@
         </div>
 
         <MeasurementDisplay 
+          {isConnected}
           agtronLevel={data.agtronLevel}
           particleSensorValue={data.particleSensorValue}
           meterState={data.meterState}
