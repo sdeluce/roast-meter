@@ -1,5 +1,6 @@
 <script lang="ts">
   import '../app.css';
+  import { page } from '$app/stores';
   import { onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
   import { bluetoothService } from '$lib/bluetooth';
@@ -32,6 +33,9 @@
   function toggleSettings() {
 		$showSettings = !$showSettings;
   }
+
+  $: active = $page.url.pathname;
+  $: isManual = active === '/manual';
 </script>
 
 <div class="bg-gray-900">
@@ -73,11 +77,11 @@
               <span>Connecter</span>
             </button>
           {/if}
-          <a href="/manual"
+          <a href="/manual" aria-current={active === "/manual" ? true : undefined} class:active
               class="p-2 rounded-lg bg-slate-800 hover:bg-gray-700 transition-colors"
-              class:bg-amber-800={$showSettings}
+              class:bg-cyan-600={isManual}
             >
-              <BadgeHelp class="h-5 w-5 text-gray-200" />
+              <BadgeHelp class="h-5 w-5 text-white" />
           </a>
         </div>
       </div>

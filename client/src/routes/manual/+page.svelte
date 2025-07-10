@@ -20,6 +20,8 @@
     <li>Après la mesure, retirez la substance avec une brosse à poils souples, et nettoyez avec de l'alcool isopropylique si nécessaire.</li>
   </ul>
 
+  <hr>
+
   <h2>Étalonnage</h2>
   <p>Idéalement, chaque <b>Roast Meter</b> serait étalonné en comparaison avec des appareils et substances de référence. Mais comme il s'agit d’un dispositif open source et assemblé par l’utilisateur, cela n’est pas possible.</p>
   <p>L’étalonnage est donc réalisé par substitution, en utilisant des substances de référence couramment disponibles et des plages cibles associées. Ces cibles ont été établies à partir de tests initiaux avec le CM100 et sont mises à jour à l’aide de données collectées de manière collaborative auprès des utilisateurs.</p>
@@ -33,6 +35,8 @@
     <li>Modifiez la variable <b>ledBrightness</b> à la hausse ou à la baisse d’une unité selon la moyenne obtenue</li>
   </ul>
   <p>Par exemple, si la moyenne est inférieure à la valeur cible, augmentez ledBrightness, et inversement</p>
+
+  <hr>
 
   <h2>Mesure du café</h2>
 
@@ -69,4 +73,10 @@
     <li>Jetez l’échantillon et passez au suivant.</li>
     <li>Cela donne 9 lectures au total pour un café, dont vous ferez la moyenne.</li>
   </ul>
+
+  <hr>
+
+  <div>
+    <img src="/SharingRoastPilot.svg" alt="Sharing" class="mx-auto my-8 bg-white rounded-2xl shadow-xl size-72" />
+  </div>
 </div>

@@ -143,7 +143,6 @@
         </div>
       </div> -->
     </div>
-
     <!-- Panneau de calibration -->
     {#if $showSettings}
       <div class="lg:col-span-3">
