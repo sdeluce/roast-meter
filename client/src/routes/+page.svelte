@@ -61,7 +61,7 @@
 </script>
 
 <svelte:head>
-  <title>Roast Meter - Contrôle de torréfaction</title>
+  <title>Roast Pilot BLE</title>
 </svelte:head>
 
 {#if !isBluetoothSupported}
@@ -77,7 +77,7 @@
     <div class="lg:col-span-2">
       <div class="bg-gray-800 rounded-xl shadow-lg p-4 px-6 pb-6">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-semibold text-gray-200">Mesures en temps réel</h2>
+          <h2 class="text-xl font-semibold text-gray-200">Mesure</h2>
           <StatusIndicator 
             {isConnected} 
             state={data.meterState}

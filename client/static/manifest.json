@@ -1,6 +1,8 @@
 {
   "name": "Roast Meter Controler",
   "short_name": "Roast Meter",
+  "description": "Control your Roast Meter BLE device with this web application.",
+  "id": "roast-meter-controler",
   "theme_color": "#111827",
   "background_color": "#111827",
   "display": "standalone",
