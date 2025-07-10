@@ -1,6 +1,6 @@
 <script lang="ts">
   import { bluetoothService, type CalibrationSettings } from '$lib/bluetooth';
-  import { Save, Settings } from 'lucide-svelte';
+  import { Save, Undo2 } from 'lucide-svelte';
 
   export let calibrationSettings: CalibrationSettings;
   export let isConnected: boolean;
@@ -61,7 +61,7 @@
           on:click={resetSettings}
           class="px-3 py-1 text-sm bg-gray-800 text-gray-50 rounded hover:bg-gray-900 transition-colors"
         >
-          Annuler
+          <Undo2 class="h-4 w-4" />
         </button>
         <button
           on:click={saveSettings}
@@ -76,46 +76,41 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Luminosité LED -->
+     <!-- Luminosité LED -->
     <div class="space-y-2">
-      <label for="ledBrightness" class="block text-sm font-medium text-gray-100">
+      <label for="deviation" class="block text-sm font-medium text-gray-100">
         Luminosité LED
       </label>
       <input
-        id="ledBrightness"
-        type="range"
+        id="deviation"
+        type="number"
+        step="1"
         min="0"
         max="255"
         value={tempSettings.ledBrightness}
         on:input={updateLedBrightness}
-        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+        disabled={!isConnected}
+        class="input w-full text-black bg-white"
       />
-      <div class="flex justify-between text-xs text-gray-200">
-        <span>0</span>
-        <span class="font-medium">{tempSettings.ledBrightness}</span>
-        <span>255</span>
-      </div>
+      <p class="text-xs text-gray-200">Valeur entre 0 et 255</p>
     </div>
 
     <!-- Point d'intersection -->
-    <div class="space-y-2">
-      <label for="intersectionPoint" class="block text-sm font-medium text-gray-100">
+     <div class="space-y-2">
+      <label for="deviation" class="block text-sm font-medium text-gray-100">
         Point d'intersection
       </label>
       <input
-        id="intersectionPoint"
-        type="range"
-        min="50"
-        max="200"
+        id="deviation"
+        type="number"
+        step="1"
+        min="0"
+        max="255"
         bind:value={tempSettings.intersectionPoint}
-        disabled={!isConnected}
-        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-disabled"
+        disabled={true}
+        class="input w-full bg-gray-300 text-gray-600"
       />
-      <div class="flex justify-between text-xs text-gray-200">
-        <span>50</span>
-        <span class="font-medium">{tempSettings.intersectionPoint}</span>
-        <span>200</span>
-      </div>
+      <p class="text-xs text-gray-200">Valeur entre 50 et 200</p>
     </div>
 
     <!-- Déviation -->
@@ -130,14 +125,14 @@
         min="0"
         max="1"
         bind:value={tempSettings.deviation}
-        disabled={!isConnected}
-        class="input w-full"
+        disabled={true}
+        class="input w-full bg-gray-300 text-gray-600"
       />
       <p class="text-xs text-gray-200">Valeur entre 0 et 1</p>
     </div>
 
     <!-- Nom BLE -->
-    <div class="space-y-2">
+    <div class="space-y-2 mb-2">
       <label for="bleName" class="block text-sm font-medium text-gray-100">
         Nom Bluetooth
       </label>
@@ -146,60 +141,17 @@
         type="text"
         maxlength="63"
         bind:value={tempSettings.bleName}
-        disabled={!isConnected}
-        class="input w-full"
+        disabled={true}
+        class="input w-full bg-gray-300 text-gray-600"
       />
-      <p class="text-xs text-gray-200">Maximum 63 caractères</p>
     </div>
   </div>
 
   {#if !isConnected}
-    <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-      <p class="text-sm text-yellow-800">
-        Connectez-vous au device pour modifier les paramètres de calibration.
+    <div class="mt-6 p-4 bg-red-800 border border-red-900 rounded-lg">
+      <p class="text-sm text-red-50">
+        Connectez-vous à votre roast meter pour modifier les paramètres de calibration.
       </p>
     </div>
   {/if}
 </div>
-
-<style>
-  .slider::-webkit-slider-thumb {
-    appearance: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #3b82f6;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .slider::-moz-range-thumb {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #3b82f6;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .slider-disabled::-webkit-slider-thumb {
-    appearance: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #413f3f;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .slider-disabled::-moz-range-thumb {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #413f3f;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-</style>

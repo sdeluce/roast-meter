@@ -34,7 +34,7 @@
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-br bg-gray-900">
+<div class="bg-gray-900">
   <!-- Header -->
   <header class="bg-gray-900">
     <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
@@ -75,7 +75,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 pt-2">
     <slot {showSettings} />
   </main>
 </div>

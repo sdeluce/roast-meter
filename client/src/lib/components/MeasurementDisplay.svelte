@@ -1,6 +1,6 @@
 <script lang="ts">
   import { STATES, type DeviceState } from '$lib/bluetooth';
-  import { Gauge, Eye, Thermometer } from 'lucide-svelte';
+  import { Gauge, Eye, Thermometer, Coffee } from 'lucide-svelte';
 
   export let agtronLevel: number;
   export let particleSensorValue: number;
@@ -30,8 +30,8 @@
 {#if meterState === STATES.READY}
   <div class="mb-6 p-4 bg-green-700 border border-green-800 rounded-lg">
     <div class="flex items-center space-x-2">
-      <Thermometer class="h-5 w-5 text-green-50" />
-      <p class="text-sm text-green-50 font-medium">Appareil prêt - Placez votre échantillon</p>
+      <Coffee class="h-5 w-5 text-green-50" />
+      <p class="text-sm text-green-50 font-medium">Placez votre échantillon</p>
     </div>
   </div>
 {:else if meterState === STATES.WARMUP || meterState === STATES.SETUP}
@@ -42,10 +42,10 @@
     </div>
   </div>
 {:else if meterState === STATES.MEASURED}
-  <div class="mb-6 p-4 bg-blue-700 border border-blue-800 rounded-lg">
+  <div class="mb-6 p-4 bg-cyan-700 border border-cyan-800 rounded-lg">
     <div class="flex items-center space-x-2">
-      <Gauge class="h-5 w-5 text-blue-50" />
-      <p class="text-sm text-blue-50 font-medium">Mesure en cours...</p>
+      <Gauge class="h-5 w-5 text-cyan-50" />
+      <p class="text-sm text-cyan-50 font-medium">Mesure en cours...</p>
     </div>
   </div>
 {/if}

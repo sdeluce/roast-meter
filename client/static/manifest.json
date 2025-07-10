@@ -66,6 +66,9 @@
   "categories": [
     "utilities"
   ],
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
   "screenshots" : [
     {
       "src": "screenshot/screenshot.jpg",
