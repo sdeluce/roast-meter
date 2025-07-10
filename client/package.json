@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "host": "vite build && firebase deploy",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -26,6 +27,7 @@
     "vite-plugin-pwa": "^0.17.4"
   },
   "dependencies": {
+    "firebase": "^11.10.0",
     "lucide-svelte": "^0.294.0"
   }
 }

@@ -40,7 +40,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-6">
         <div class="flex items-center space-x-3">
-          <h1 class="text-2xl text-gray-200">Roast Meter</h1>
+          <h1 class="text-2xl text-gray-200">Roast Pilot BLE</h1>
         </div>
         
         <div class="flex items-center space-x-4">

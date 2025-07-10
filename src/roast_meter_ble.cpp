@@ -328,6 +328,20 @@ void setupBLE() {
   Serial.println(("Bluetooth® device active, waiting for connections..."));
 }
 
+String getSCAName(int agtronValue) {
+  if (agtronValue >= 0 && agtronValue <= 130) {
+    if (agtronValue >= 108) return "V.Light";       // Very Light
+    if (agtronValue >= 93) return "Light";
+    if (agtronValue >= 79) return "M.Light";
+    if (agtronValue >= 64) return "Medium";
+    if (agtronValue >= 49) return "Med-Dark";      // Medium-Dark
+    if (agtronValue >= 35) return "Dark";
+    if (agtronValue >= 23) return "V.Dark";        // Very Dark
+    return "X.Dark";                               // Extremely Dark
+  }
+  return "Unknown";
+}
+
 void setupParticleSensor() {
   particleSensor.setup(ledBrightness, sampleAverage, ledMode, sampleRate, pulseWidth, adcRange);  // Configure sensor with these settings
 
@@ -343,11 +357,13 @@ void setupParticleSensor() {
 // Sub Routines
 
 void displayStartUp() {
+  oled.flipVertical(true);
+  oled.flipHorizontal(true);
   oled.clear(PAGE);
   oled.setCursor(0, 0);
-  oled.setFontType(1);
-  oled.print("Roast  ");
-  oled.print("Meter  ");
+  oled.setFontType(0);
+  oled.print("Roast");
+  oled.print("Meter");
   oled.setFontType(0);
   oled.print(FIRMWARE_REVISION_STRING);
   oled.display();
@@ -356,7 +372,7 @@ void displayStartUp() {
 
   oled.clear(PAGE);
   oled.setCursor(0, 0);
-  oled.setFontType(1);
+  oled.setFontType(0);
   oled.print(bleName);
   oled.display();
 
@@ -364,12 +380,17 @@ void displayStartUp() {
 }
 
 void warmUpLED() {
-  meterStateCharacteristic.writeValue(STATE_WARMUP);
-
+  
   int countDownSeconds = 60;
   unsigned long jobTimerStart = millis();
   unsigned long jobTimer = jobTimerStart;
-
+  int centerPadding = 4 - String(countDownSeconds).length();
+  int startX = (64 - 7) / 2;
+  String paddingText = multiplyChar(' ', centerPadding);
+  oled.flipVertical(true);
+  oled.flipHorizontal(true);
+  
+  meterStateCharacteristic.writeValue(STATE_WARMUP);
   while (millis() - jobTimerStart <= 60 * 1000) {
     unsigned long elapsed = millis() - jobTimer;
 
@@ -380,7 +401,12 @@ void warmUpLED() {
 
       countDownSeconds = 60 - ((millis() - jobTimerStart) / 1000);
 
-      oled.print("Warm Up " + String(countDownSeconds) + "s");
+      oled.setFontType(2);
+      oled.print(paddingText);
+      oled.print(String(countDownSeconds));
+      oled.setCursor(12, 28);
+      oled.setFontType(0);
+      oled.print("Warm Up");
       oled.display();
 
       jobTimer = millis();
@@ -421,23 +447,46 @@ void measureSampleJob() {
 }
 
 void displayPleaseLoadSample() {
+  int yPos = 4;
   oled.clear(PAGE);
-  oled.setCursor(0, 0);
-  oled.setFontType(1);
-  oled.print("Please load   sample!");
+  oled.flipVertical(true);
+  oled.flipHorizontal(true);
+  int startX = (64 - 4*6) / 2;
+  oled.setCursor(startX, 0 + yPos);
+  oled.setFontType(0);  // Taille moyenne (souvent 6x8 ou 7x10 selon la lib)
+  oled.print("Load");
+  startX = (64 - 6*6) / 2;
+  oled.setCursor(startX, 12 + yPos); // Ligne suivante
+  oled.print("ground");
+  oled.setCursor(startX, 24 + yPos); // Encore une ligne en bas
+  oled.print("coffee");
   oled.display();
 }
 
 void displayMeasurement(int agtronLevel) {
   oled.clear(PAGE);
-  oled.setCursor(0, 0);
+  oled.flipVertical(true);
+  oled.flipHorizontal(true);
+  int yPos = 4;
+  oled.setCursor(0, yPos);
 
+  // int calibratedReading = f(agtronLevel);
   int centerPadding = 4 - String(agtronLevel).length();
   String paddingText = multiplyChar(' ', centerPadding);
-
-  oled.setFontType(3);
+  oled.setFontType(2);
   oled.print(paddingText);
   oled.print(agtronLevel);
+
+  String roastText = getSCAName(agtronLevel);
+  int textWidth = roastText.length() * 6; // 5 px par caractère + 1 px d'espacement
+  int startX = (64 - textWidth) / 2;
+  oled.setCursor(startX, 28);
+  oled.setFontType(0);
+  oled.print(roastText);
+  
+
+  Serial.println("agtron:" + String(agtronLevel));
+  Serial.println("===========================");
 
   oled.display();
 }

@@ -3,7 +3,7 @@
   import { Gauge, Eye, Thermometer } from 'lucide-svelte';
 
   export let agtronLevel: number;
-  export let particleSensorValue: number;
+  // export let particleSensorValue: number;
   export let meterState: DeviceState;
 
   function getAgtronColor(level: number): string {
@@ -34,18 +34,11 @@
       <p class="text-sm text-green-50 font-medium">Appareil prêt - Placez votre échantillon</p>
     </div>
   </div>
-{:else if meterState === STATES.WARMUP}
+{:else if meterState === STATES.WARMUP || meterState === STATES.SETUP}
   <div class="mb-6 p-4 bg-yellow-700 border border-yellow-800 rounded-lg">
     <div class="flex items-center space-x-2">
       <Thermometer class="h-5 w-5 text-yellow-50" />
       <p class="text-sm text-yellow-50 font-medium">Préchauffage en cours...</p>
-    </div>
-  </div>
-{:else if meterState === STATES.SETUP}
-  <div class="mb-6 p-4 bg-gray-700 border border-gray-800 rounded-lg">
-    <div class="flex items-center space-x-2">
-      <Gauge class="h-5 w-5 text-gray-50" />
-      <p class="text-sm text-gray-800 font-medium">Configuration en cours...</p>
     </div>
   </div>
 {:else if meterState === STATES.MEASURED}
