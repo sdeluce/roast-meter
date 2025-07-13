@@ -4,7 +4,7 @@
   import { onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
   import { bluetoothService } from '$lib/bluetooth';
-  import { Bluetooth, BluetoothConnected, Settings, BadgeHelp} from 'lucide-svelte';
+  import { Bluetooth, BluetoothConnected, Settings, BadgeHelp, Undo2} from 'lucide-svelte';
 
   let isConnected = false;
   let showSettings = writable(false);
@@ -36,6 +36,7 @@
 
   $: active = $page.url.pathname;
   $: isManual = active === '/manual';
+  $: isHome = active === '/';
 </script>
 
 <div class="bg-gray-900">
@@ -77,12 +78,21 @@
               <span>Connecter</span>
             </button>
           {/if}
-          <a href="/manual" aria-current={active === "/manual" ? true : undefined} class:active
-              class="p-2 rounded-lg bg-slate-800 hover:bg-gray-700 transition-colors"
-              class:bg-cyan-600={isManual}
+          {#if !isHome}
+            <a href="/" aria-current={active === "/" ? true : undefined} class:active
+              class="p-2 rounded-lg bg-green-800 hover:bg-green-700 transition-colors"
+              class:bg-cyan-600={!isHome}
             >
-              <BadgeHelp class="h-5 w-5 text-white" />
-          </a>
+              <Undo2 class="h-5 w-5 text-white"/>
+            </a>
+          {:else}
+            <a href="/manual" aria-current={active === "/manual" ? true : undefined} class:active
+                class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors"
+                class:bg-cyan-600={isManual}
+              >
+                <BadgeHelp class="h-5 w-5 text-white" />
+            </a>
+          {/if}
         </div>
       </div>
     </div>

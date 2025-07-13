@@ -17,17 +17,29 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Roast Pilot">
 
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEY272W0CL"></script>
     <script>
-        // Enregistrement du service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(registration => {
-                    console.log('Service Worker enregistré:', registration);
-                })
-                .catch(error => {
-                    console.log('Erreur Service Worker:', error);
-                });
-        }
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MEY272W0CL');
+    </script>
+
+
+    <script>
+      // Enregistrement du service worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+          .then(registration => {
+            console.log('Service Worker enregistré:', registration);
+          })
+          .catch(error => {
+            console.log('Erreur Service Worker:', error);
+          });
+      }
     </script>
 
     %sveltekit.head%

@@ -7,12 +7,24 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "strict": true,
-    "moduleResolution": "node",
-    "target": "ES2017",
+    "moduleResolution": "bundler",
+    "target": "es2022",
     "module": "ESNext",
-    "lib": ["ES2017", "DOM", "DOM.Iterable"],
-    "types": ["web-bluetooth"]
-  }
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["web-bluetooth"],
+    "incremental": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "static",
+    ".firebase",
+    ".svelte-kit"
+  ]
 }
