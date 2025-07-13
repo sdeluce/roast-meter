@@ -39,6 +39,35 @@ export interface CalibrationSettings {
   bleName: string;
 }
 
+// The wake lock sentinel.
+let wakeLock: any = null;
+
+// Function that attempts to request a wake lock.
+const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      console.log('Wake Lock was released');
+    });
+    console.log('Wake Lock is active');
+  } catch (err: any) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
+// Function that attempts to release the wake lock.
+const releaseWakeLock = async () => {
+  if (!wakeLock) {
+    return;
+  }
+  try {
+    await wakeLock.release();
+    wakeLock = null;
+  } catch (err: any) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
 class BluetoothService {
   private device: BluetoothDevice | null = null;
   private server: BluetoothRemoteGATTServer | null = null;
@@ -108,6 +137,9 @@ class BluetoothService {
       });
 
       this.isConnected.set(true);
+      requestWakeLock().catch(error => {
+        console.error('Erreur lors de la demande de Wake Lock:', error);
+      });
     } catch (error) {
       this.isConnected.set(false);
       console.error('Erreur de connexion Bluetooth:', error);

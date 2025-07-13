@@ -1,15 +1,12 @@
 <script lang="ts">
   import '../app.css';
   import { page } from '$app/stores';
-  import { onMount, setContext } from 'svelte';
-	import { writable } from 'svelte/store';
+  import { onMount } from 'svelte';
+  import { showSettings } from '$lib/stores';
   import { bluetoothService } from '$lib/bluetooth';
   import { Bluetooth, BluetoothConnected, Settings, BadgeHelp, Undo2} from 'lucide-svelte';
 
   let isConnected = false;
-  let showSettings = writable(false);
-	
-	setContext('showSettings', showSettings);
 
   onMount(() => {
 		bluetoothService.isConnected.subscribe(value => {
@@ -31,7 +28,8 @@
   }
 	
   function toggleSettings() {
-		$showSettings = !$showSettings;
+    console.log('Toggling settings visibility', showSettings);
+		showSettings.toggle();
   }
 
   $: active = $page.url.pathname;
@@ -51,7 +49,7 @@
         </div>
         
         <div class="flex items-center space-x-4">
-          {#if isConnected}
+          {#if isConnected && isHome}
             <button
               on:click={toggleSettings}
               class="p-2 rounded-lg hover:bg-gray-700 transition-colors"
@@ -100,6 +98,6 @@
 
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 pt-2">
-    <slot {showSettings} />
+    <slot />
   </main>
 </div>

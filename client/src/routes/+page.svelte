@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { onMount, getContext } from 'svelte';
+  import { onMount } from 'svelte';
   import { bluetoothService, STATES, type RoastMeterData, type CalibrationSettings } from '$lib/bluetooth';
   import CalibrationPanel from '$lib/components/CalibrationPanel.svelte';
   import MeasurementDisplay from '$lib/components/MeasurementDisplay.svelte';
   import StatusIndicator from '$lib/components/StatusIndicator.svelte';
-
-  export let showSettings = getContext('showSettings'); // = false;
+  import { showSettings } from '$lib/stores';
 
   let data: RoastMeterData = {
     agtronLevel: 0,
@@ -144,6 +143,7 @@
       </div> -->
     </div>
     <!-- Panneau de calibration -->
+     <h1 class="text-pink-500">{$showSettings}</h1>
     {#if $showSettings}
       <div class="lg:col-span-3">
         <CalibrationPanel {calibrationSettings} {isConnected} />

@@ -1,6 +1,6 @@
 <div class="prose prose-invert max-w-fit">
   <h1>Manuel d'utilisation du Roast Meter</h1>
-  <p class="text-gray-400">Version 1.0.0</p>
+  <p class="text-gray-400">Version 1.0.2</p>
 
   <h2>Pourquoi mesurer la couleur de la torréfaction ?</h2>
   <p>La couleur de la torréfaction est corrélée au goût du café et, avec d'autres données, elle fournit un moyen de corroborer la qualité d’un café.</p>
@@ -75,6 +75,18 @@
   </ul>
 
   <hr>
+
+  <h2>Releases</h2>
+
+  <ul>
+    <li><b>1.0.2</b> - Ajout d'un systeme pour l'écran du télephone reste allumé sur le <b>Roast meter</b> est connecté</li>
+    <li><b>1.0.1</b> - Mise à jour des dépendances</li>
+    <li><b>1.0.0</b> - Premiere version de l'application</li>
+  </ul>
+
+  <hr>
+
+  <h2>Partage</h2>
 
   <div>
     <img src="/SharingRoastPilot.svg" alt="Sharing" class="mx-auto my-8 bg-white rounded-2xl shadow-xl size-72" />

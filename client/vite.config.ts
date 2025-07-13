@@ -4,7 +4,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
 	server: {
-    https: false, // Bluetooth fonctionne sur localhost HTTP
     port: 5173
   },
 	build: {
