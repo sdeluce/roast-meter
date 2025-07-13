@@ -143,7 +143,6 @@
       </div> -->
     </div>
     <!-- Panneau de calibration -->
-     <h1 class="text-pink-500">{$showSettings}</h1>
     {#if $showSettings}
       <div class="lg:col-span-3">
         <CalibrationPanel {calibrationSettings} {isConnected} />

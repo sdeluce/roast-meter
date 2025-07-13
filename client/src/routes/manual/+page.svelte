@@ -79,7 +79,7 @@
   <h2>Releases</h2>
 
   <ul>
-    <li><b>1.0.2</b> - Ajout d'un systeme pour l'écran du télephone reste allumé sur le <b>Roast meter</b> est connecté</li>
+    <li><b>1.0.2</b> - Ajout d'un systeme pour l'écran du télephone reste allumé lorsque le <b>Roast meter</b> est connecté</li>
     <li><b>1.0.1</b> - Mise à jour des dépendances</li>
     <li><b>1.0.0</b> - Premiere version de l'application</li>
   </ul>
